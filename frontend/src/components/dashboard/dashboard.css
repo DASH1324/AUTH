@@ -1,0 +1,258 @@
+body {
+  background: #eaf6f8;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh; /* Fixed height */
+  overflow: hidden; /* Prevent body scroll */
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Fixed height to viewport */
+  flex-wrap: nowrap;
+  overflow: hidden; /* Prevent dashboard scroll */
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: 14%;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease, padding-left 0.3s ease;
+  min-width: 0;
+  height: 100vh; /* Fixed height */
+  overflow: hidden; /* Prevent main content scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adjust main content when sidebar is collapsed */
+.dashboard-main.sidebar-collapsed {
+  margin-left: 85px;
+  padding-left: 60px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .dashboard {
+    flex-wrap: wrap;
+  }
+  .dashboard-main {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px 15px 15px 15px;
+  }
+  .dashboard-main.sidebar-collapsed {
+    margin-left: 0;
+    width: 100%;
+  }
+  .dashboard-cards {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    padding: 15px 10px 10px 10px;
+  }
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-contents {
+  margin-top: 60px;
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Only this section scrolls */
+  overflow-x: hidden;
+  /* Hide scrollbar for all browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+/* Hide scrollbar for webkit browsers */
+.dashboard-contents::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cards */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  height: auto;
+  min-height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+  font-size: 20px;
+  color: #fff;
+  height: 25px;
+  width: 25px;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+/* User Management Card Colors */
+.card.users .card-icon { background: #6f42c1; } /* Purple for total users */
+.card.registrations .card-icon { background: #28a745; } /* Green for new registrations */
+.card.active .card-icon { background: #007bff; } /* Blue for active users */
+.card.pending .card-icon { background: #fd7e14; } /* Orange for pending approvals */
+
+.card-text {
+  flex: 1;
+  align-self: start;
+  margin-left: 10px;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.card-details {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 15px;
+  gap: 8px;
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-percent {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.card-percent.green {
+  color: #28a745;
+}
+
+.card-percent.red {
+  color: #dc3545;
+}
+
+/* Charts */
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.chart-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  height: 450px;
+  transition: box-shadow 0.2s ease;
+}
+
+.chart-box:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.chart-dropdown {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.chart-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.chart-dropdown option {
+  background: white;
+  padding: 8px;
+}
+
+.chart-dropdown:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+}
+
+/* Custom styles for pie chart legend */
+.recharts-legend-wrapper {
+  padding-top: 10px !important;
+}
+
+.recharts-legend-item {
+  margin-right: 15px !important;
+}
+
+.recharts-legend-item-text {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Custom styles for bar chart */
+.recharts-cartesian-axis-tick-value {
+  font-size: 12px;
+}
+
+/* Tooltip customization */
+.recharts-tooltip-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
